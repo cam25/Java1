@@ -3,6 +3,7 @@ package com.cmozie.java1week1;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,9 +39,21 @@ public class MainActivity extends Activity {
 		EditText et = new EditText(this);
 		//ll.addView(et);
 		et.setHint(hintText);
+		et.setId(1);
 		
 		Button b = new Button(this);
 		b.setText("Select");
+		b.setId(2);
+		
+		b.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		//ll.addView(b);
 		
 		LinearLayout form = new LinearLayout(this);
