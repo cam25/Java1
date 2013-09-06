@@ -1,5 +1,7 @@
 package com.cmozie.jsondata;
 
+import java.util.HashMap;
+
 public enum Enums {
 	
 	NewYork(201,"NY"," 11:30PM"),
@@ -34,4 +36,19 @@ public String setTime(){
 	
 	return time;
 }
+
+/*public static HashMap<Enums, Integer>getValue(int code){
+	
+	
+	HashMap<Enums, Integer> value = new HashMap<Enums, Integer>();
+	
+	locations[] areaStates = {NEW YORK,WAS HDC,VIRGINIA};
+	
+	if () {
+		
+	}
+	
+	return value;
+}*/
+
 }
