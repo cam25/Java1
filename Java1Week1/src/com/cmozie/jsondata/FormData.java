@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -37,6 +39,7 @@ public class FormData {
 		ll.addView(et);
 		ll.addView(b);
 		
+		
 		//retuning type of data we need to return
 		return ll;
 		
@@ -44,10 +47,30 @@ public class FormData {
 	
 	public static TextView outputTextView(Context context){
 		
-		TextView resultsText = new TextView(context);
-		resultsText.setId(3);
+		//creates a new text view for results of the json query.
+		TextView JSONoutputText = new TextView(context);
+		JSONoutputText.setId(3);
 		
-		return resultsText;
+		return JSONoutputText;
+		
+	}
+	
+	public static RadioGroup getOptions(Context context, String[] options){
+		
+		RadioGroup boxes = new RadioGroup(context);
+		
+		for (int i = 0; i < options.length; i++) {
+			RadioButton rb = new RadioButton(context);
+			rb.setText(options[i]);
+			if(i==0){
+				
+				rb.setChecked(true);
+			}
+			rb.setId(i+1);
+			boxes.addView(rb);
+		}
+		
+		return boxes;
 		
 	}
 

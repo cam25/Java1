@@ -29,11 +29,13 @@ public class JSON {
 			}
 			// add query to songs
 			location.put("query", query);
+			
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return location;
 	}
 	
@@ -41,6 +43,8 @@ public class JSON {
 		
 		String result= ""; 
 		String areaCode = "";
+		String state = "";
+		String time = "";
 		
 		
 		
@@ -48,6 +52,8 @@ public class JSON {
 		
 		try {
 			areaCode = object.getJSONObject("query").getJSONObject(selected).getString("areaCode");
+			state = object.getJSONObject("query").getJSONObject(selected).getString("state");
+			time = object.getJSONObject("query").getJSONObject(selected).getString("time");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
