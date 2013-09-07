@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
 	
 	TextView showJsonResults;
 	RadioGroup locationOptions;
+	ArrayList<Lookup> stateNames;
 	//RadioGroup boxes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +51,25 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
+				EditText codes = (EditText) v.getTag();
+				
+				Log.i("Button Clicked",codes.getText().toString());
+		
+				String text = codes.getText().toString();
+				
+				
 				//setting radio buttons to capture which was clicked
 				int selectedRadioID = locationOptions.getCheckedRadioButtonId();
 				RadioButton selectedRadio = (RadioButton) locationOptions.findViewById(selectedRadioID);
+				String selected = (String) selectedRadio.getText().toString();
 				
+				Log.i("Radio Selected?",selected);
 				
-				EditText codes = (EditText) v.getTag();
-				//console log for button
-				Log.i("Button Clicked",codes.getText().toString());
-				//grabs json data on click
-				String selected = codes.getText().toString();
+			
 				
-				showJsonResults.setText(JSON.readJSON(selected));
+			
+				
+				showJsonResults.setText(JSON.readJSON(selected)+text);
 				
 			}
 			
