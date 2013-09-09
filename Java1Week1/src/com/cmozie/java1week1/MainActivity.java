@@ -73,6 +73,8 @@ public class MainActivity extends Activity {
 				RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
 				String selected = selectedRadio.getText().toString();
 			
+				//condition that allows for usage of radio buttons based on if edit text field is empty it will allow you to select radio button
+				//and click go to get results. else if you enter something inside text field and hit go it will give you result also.
 				if (codes.length() == 0) {
 					showJsonResults.setText(JSON.readJSON(selected));
 				}
