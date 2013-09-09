@@ -3,10 +3,19 @@ package com.cmozie.jsondata;
 public class LookupDetails implements Lookup {
 
 	String locationName;
+	int zipcode;
 	
-	public LookupDetails(String locationName){
+	public LookupDetails(String locationName, int zipcode){
+		
 		
 		setUserLocation(locationName);
+		setZip(zipcode);
+	}
+	
+	public boolean setZip(int zipcode)
+	{
+		this.zipcode = zipcode;
+		return true;
 	}
 	
 	@Override
@@ -19,6 +28,7 @@ public class LookupDetails implements Lookup {
 	public String getUserLocation() {
 		// TODO Auto-generated method stub
 		return this.locationName;
+		
 	}
 
 	/**

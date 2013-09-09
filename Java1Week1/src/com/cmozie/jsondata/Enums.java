@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 public enum Enums {
 	
-	NewYork(11221,"Brooklyn","KINGS","NY","347/718/917","40.692502","-73.927079","New York-Newark-Bridgeport, NY-NJ-CT-PA","New York-Northern New Jersey-Long Island NY-NJ-PA", "Northeast","5"),
-	WashDC(20001, "Washington","DISTRICT OF COLUMBIA", "DC", "202/703","38.910717","-77.01666","Washington-Baltimore-Northern Virginia, DC-MD-VA-WV","Washington-Arlington-Alexandria DC-VA-MD-WV","South","5"),
-	Virginia(22314,"Alexandria","Virginia", "202/571/703","38.81403","-77.063962","Washington-Baltimore-Northern Virginia", "DC-MD-VA-WV","Washington-Arlington-Alexandria DC-VA-MD-WV","South","5");
+	NewYork("11221","Brooklyn","KINGS","NY","347/718/917","40.692502","-73.927079","New York-Newark-Bridgeport, NY-NJ-CT-PA","New York-Northern New Jersey-Long Island NY-NJ-PA", "Northeast","5"),
+	WashDC("20001", "Washington","DISTRICT OF COLUMBIA", "DC", "202/703","38.910717","-77.01666","Washington-Baltimore-Northern Virginia, DC-MD-VA-WV","Washington-Arlington-Alexandria DC-VA-MD-WV","South","5"),
+	Virginia("22314","Alexandria","Virginia", "202/571/703","38.81403","-77.063962","Washington-Baltimore-Northern Virginia", "DC-MD-VA-WV","Washington-Arlington-Alexandria DC-VA-MD-WV","South","5");
 			
 
-	private final int zipcode;
+	private final String zipcode;
 	
 	private final String city;
 	
@@ -33,7 +33,7 @@ public enum Enums {
 	
 	
 	
-	private Enums(int zipcode, String city, String county, String state, String areaCodes, String latitude, String longitude, String csa_name,String cbsa_name,String region, String timezone){
+	private Enums(String zipcode, String city, String county, String state, String areaCodes, String latitude, String longitude, String csa_name,String cbsa_name,String region, String timezone){
 		
 		this.zipcode = zipcode;
 		this.city = city;
@@ -49,7 +49,7 @@ public enum Enums {
 		
 	}
 	
-	public int setZipcode(){
+	public String setZipcode(){
 		
 		return zipcode;
 	}

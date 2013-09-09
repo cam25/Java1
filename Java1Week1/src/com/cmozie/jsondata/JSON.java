@@ -40,8 +40,12 @@ public class JSON {
 				areaLookupObject.put("region", lookups.setRegion());
 				areaLookupObject.put("timezone", lookups.setTimezone());
 
+				area_codesObject.put(lookups.setZipcode().toString(),
+						areaLookupObject);
+				
 				area_codesObject.put(lookups.name().toString(),
 						areaLookupObject);
+				
 
 			}
 			// adds area_codes to area_codesObject

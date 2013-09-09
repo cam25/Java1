@@ -74,11 +74,14 @@ public class MainActivity extends Activity {
 				String selected = selectedRadio.getText().toString();
 			
 				//condition that allows for usage of radio buttons based on if edit text field is empty it will allow you to select radio button
-				//and click go to get results. else if you enter something inside text field and hit go it will give you result also.
+				//and click go to get results. else if you enter something inside text field
 				if (codes.length() == 0) {
 					showJsonResults.setText(JSON.readJSON(selected));
 				}
 				else if (codes.length() > 1) {
+					
+					showJsonResults.setText(JSON.readJSON(text));
+				}else if (codes.length() > 1 && selected.length() == 0) {
 					
 					showJsonResults.setText(JSON.readJSON(text));
 				}
@@ -99,9 +102,9 @@ public class MainActivity extends Activity {
 		
 		//array of items that are being added to the Lookup interface
 		ArrayList<Lookup> stateNames = new ArrayList<Lookup>();
-		 stateNames.add(new LookupDetails("WashDC"));
-		 stateNames.add(new LookupDetails("NewYork"));
-		 stateNames.add(new LookupDetails("Virginia"));
+		 stateNames.add(new LookupDetails("WashDC",20001));
+		 stateNames.add(new LookupDetails("NewYork",11221));
+		 stateNames.add(new LookupDetails("Virginia",22314));
 		 
 		//creating  
 		String[] localNames = new String[stateNames.size()];
