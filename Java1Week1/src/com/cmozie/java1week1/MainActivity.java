@@ -50,8 +50,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
-				EditText codes = (EditText) v.getTag();
+EditText codes = (EditText) v.getTag();
 				
 				Log.i("Button Clicked",codes.getText().toString());
 		
@@ -69,7 +68,12 @@ public class MainActivity extends Activity {
 				
 			
 				
-				showJsonResults.setText(JSON.readJSON(selected)+text);
+				showJsonResults.setText(JSON.readJSON(selected));
+				
+				
+
+				
+				//showJsonResults.setText(JSON.readJSON(selected));
 				
 			}
 			
@@ -77,8 +81,7 @@ public class MainActivity extends Activity {
 			
 		});
 		
-		showJsonResults = FormData.outputTextView(this);
-		showJsonResults.setText("Results will show here");
+		
 		
 		//array of items that are being added to the Lookup interface
 		ArrayList<Lookup> stateNames = new ArrayList<Lookup>();
@@ -91,13 +94,19 @@ public class MainActivity extends Activity {
 		for (int i = 0; i < stateNames.size(); i++) {
 			
 			localNames[i] = stateNames.get(i).getUserLocation();
+			
 		}
 		
 		RadioGroup locationOptions = FormData.getOptions(this, localNames);		
+		showJsonResults = FormData.outputTextView(this);
+		showJsonResults.setText("Results will show here");
+		
+		
 		//added entry box to view
 		ll.addView(locationOptions);
 		ll.addView(entryBox);
 		ll.addView(showJsonResults);
+		
 		
 		
 		
@@ -106,6 +115,7 @@ public class MainActivity extends Activity {
 		
 		
 	}
+	
 	
 	
 	

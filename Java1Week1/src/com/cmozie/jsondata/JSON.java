@@ -1,59 +1,71 @@
 package com.cmozie.jsondata;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import android.util.Log;
 
 public class JSON {
 
-	public static JSONObject createJson() {
+	ArrayList<Lookup> stateNames;
 
-		// creats stocks object
-		JSONObject location = new JSONObject();
+	public static JSONObject buildJSON() {
+
+		// create lookup json object
+		JSONObject lookupObject = new JSONObject();
 		try {
-			JSONObject query = new JSONObject();
+			// creates area_codes object
+			JSONObject area_codesObject = new JSONObject();
 
-			for (Enums locations : Enums.values()) {
+			// Create lookup objects in area_Codes
 
-				// creat the stocks object
-				JSONObject namesObject = new JSONObject();
+			for (Enums lookups : Enums.values()) {
 
-				// add
-				namesObject.put("areaCode", locations.setAreaCode());
-				namesObject.put("state", locations.setState());
-				namesObject.put("time", locations.setTime());
+				// create new json Object
+				JSONObject areaLookupObject = new JSONObject();
 
-				query.put(locations.name().toString(), namesObject);
+				areaLookupObject.put("area_code", lookups.setAreaCode());
+				areaLookupObject.put("state", lookups.setState());
+				areaLookupObject.put("timezone", lookups.setTimezone());
+				areaLookupObject.put("time", lookups.setTime());
+
+				area_codesObject.put(lookups.name().toString(),
+						areaLookupObject);
 
 			}
-			// add query to songs
-			location.put("query", query);
-			
+			// adds area_codes to area_codesObject
+			lookupObject.put("area_codes", area_codesObject);
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return lookupObject;
 		
-		return location;
+
 	}
-	
-	public static String readJSON(String selected){
+
+	public static String readJSON(String selected) {
+
+		String result, areaCode, state, timezone,time;
 		
-		String result= ""; 
-		String areaCode = "";
-		String state = "";
-		String time = "";
-		
-		
-		
-		JSONObject object = createJson();
+		JSONObject object = buildJSON();
 		
 		try {
-			areaCode = object.getJSONObject("query").getJSONObject(selected).getString("areaCode");
-			state = object.getJSONObject("query").getJSONObject(selected).getString("state");
-			time = object.getJSONObject("query").getJSONObject(selected).getString("time");
+			areaCode = object.getJSONObject("area_codes").getJSONObject(selected).getString("area_code");
+			state = object.getJSONObject("area_codes").getJSONObject(selected).getString("state");
+			timezone = object.getJSONObject("area_codes").getJSONObject(selected).getString("timezone");
+			time = object.getJSONObject("area_codes").getJSONObject(selected).getString("time");
+			
+			Log.i("areacode", areaCode);
+			
+			result = "Area Code: " + areaCode + "\r\n"
+					+ "State: " + state + "\r\n"
+					+ "TimeZone: " + timezone + "\r\n"
+					+ "Time: " + time + "\r\n";
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,15 +73,9 @@ public class JSON {
 		}
 		
 		
-		result = "areaCode" + areaCode + "\r\n";
+		
 		return result;
-		
-		
-		
-		
-		
-		
-	}
 
+	}
 
 }
