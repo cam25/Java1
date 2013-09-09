@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,13 +24,17 @@ public class MainActivity extends Activity {
 	TextView showJsonResults;
 	RadioGroup locationOptions;
 	ArrayList<Lookup> stateNames;
+	String etField = "";
+	
+	
 	//RadioGroup boxes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Log.e("locationOptions", locationOptions.toString());
 		
 	LinearLayout ll = new LinearLayout(this);
-	LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+	LayoutParams lp = new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,android.view.ViewGroup.LayoutParams.MATCH_PARENT);
 	
 	ll.setLayoutParams(lp);
 	ll.setOrientation(LinearLayout.VERTICAL);
@@ -37,76 +42,88 @@ public class MainActivity extends Activity {
 		//accessing strings from resources
 		String hintText = getResources().getString(R.string.editHint);
 		
-		String myText = getResources().getString(R.string.textviewText);
+		//String myText = getResources().getString(R.string.button);
 		
 		//accessing function from formdata class
 		LinearLayout entryBox = FormData.singleEntryWithButton(this, hintText, "GO");
 		
-		//EditText areaCodeText = (EditText) entryBox.findViewById(1);
+		//Button et = FormData.singleEntryWithButton(context, hint, buttonText);
+		
+		//final EditText areaCodeText = (EditText) entryBox.findViewById(1);
 		
 		Button findButton = (Button) entryBox.findViewById(2);
 		
-		findButton.setOnClickListener(new View.OnClickListener() {
+		//Button findButton = new Button(this);
+		
+		//findButton.setText(myText);
+		findButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-EditText codes = (EditText) v.getTag();
 				
+				EditText codes = (EditText) v.getTag();
 				Log.i("Button Clicked",codes.getText().toString());
-		
+
 				String text = codes.getText().toString();
 				
-				
-				//setting radio buttons to capture which was clicked
+				Log.i("locationOptions", locationOptions.toString());
 				int selectedRadioID = locationOptions.getCheckedRadioButtonId();
-				RadioButton selectedRadio = (RadioButton) locationOptions.findViewById(selectedRadioID);
-				String selected = (String) selectedRadio.getText().toString();
+				locationOptions.check(selectedRadioID);
 				
-				Log.i("Radio Selected?",selected);
-				
+				RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
+				String selected = selectedRadio.getText().toString();
 			
+				if (codes.length() == 0) {
+					showJsonResults.setText(JSON.readJSON(selected));
+				}
+				else if (codes.length() > 1) {
+					
+					showJsonResults.setText(JSON.readJSON(text));
+				}
 				
-			
 				
-				showJsonResults.setText(JSON.readJSON(selected));
-				
-				
-
-				
-				//showJsonResults.setText(JSON.readJSON(selected));
+						
 				
 			}
-			
-		
-			
 		});
+		
+		
+		
+		
+		
+		
 		
 		
 		
 		//array of items that are being added to the Lookup interface
 		ArrayList<Lookup> stateNames = new ArrayList<Lookup>();
-		 stateNames.add(new LookupDetails("Washington DC"));
-		 stateNames.add(new LookupDetails("New York"));
+		 stateNames.add(new LookupDetails("WashDC"));
+		 stateNames.add(new LookupDetails("NewYork"));
 		 stateNames.add(new LookupDetails("Virginia"));
 		 
 		//creating  
 		String[] localNames = new String[stateNames.size()];
 		for (int i = 0; i < stateNames.size(); i++) {
 			
+			Log.i("size",stateNames.toString());
 			localNames[i] = stateNames.get(i).getUserLocation();
+			
 			
 		}
 		
-		RadioGroup locationOptions = FormData.getOptions(this, localNames);		
+		locationOptions = FormData.getOptions(this, localNames);		
 		showJsonResults = FormData.outputTextView(this);
 		showJsonResults.setText("Results will show here");
 		
 		
 		//added entry box to view
+		
+		
+		
 		ll.addView(locationOptions);
+		
 		ll.addView(entryBox);
 		ll.addView(showJsonResults);
-		
 		
 		
 		

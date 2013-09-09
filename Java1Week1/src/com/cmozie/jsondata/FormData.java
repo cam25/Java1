@@ -8,7 +8,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
-
+import com.cmozie.jsondata.*;
 public class FormData {
 
 	public static LinearLayout singleEntryWithButton(Context context, String hint, String buttonText){
@@ -62,12 +62,14 @@ public class FormData {
 		for (int i = 0; i < options.length; i++) {
 			RadioButton rb = new RadioButton(context);
 			rb.setText(options[i]);
-			if(i==0){
-				
-				rb.setChecked(true);
-			}
 			rb.setId(i+1);
+			
+			if (rb.isSelected() == true) {
+				
+				
+			}
 			boxes.addView(rb);
+			
 		}
 		
 		return boxes;
