@@ -32,6 +32,8 @@ public class FormData {
 	 * @param buttonText the button text
 	 * @return the linear layout
 	 */
+	//text field made static to give access in other classes.
+	public static EditText et;
 	public static LinearLayout singleEntryWithButton(Context context, String hint, String buttonText){
 		
 		LinearLayout ll = new LinearLayout(context);
@@ -40,7 +42,7 @@ public class FormData {
 		//setting layout params
 		ll.setLayoutParams(lp);
 		
-		EditText et  = new EditText(context);
+		 et  = new EditText(context);
 		
 		//added new layout parameters to let the text field stretch the width of screen without pushing button off it
 		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);

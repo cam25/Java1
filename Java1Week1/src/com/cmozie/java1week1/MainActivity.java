@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
 		String myText = getResources().getString(R.string.info);
 		String ctext = getResources().getString(R.string.cbutton);
 		
+		
 		//accessing function from formdata class and passing in of resource hintext 
 		LinearLayout entryBox = FormData.singleEntryWithButton(this, hintText, "Search");
 		
@@ -101,7 +102,9 @@ public class MainActivity extends Activity {
 					
 					else {
 						//outputs the data from json based on a zipcode entered into text field
+						
 						showJsonResults.setText(JSON.readJSON(text));
+						
 					}
 				
 					}else {
@@ -117,9 +120,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
-				//this condition allows for clearing fields for cleaner UI
-				
+		
 				int selectedRadioID = locationOptions.getCheckedRadioButtonId();
 				
 			
@@ -127,16 +128,21 @@ public class MainActivity extends Activity {
 					  RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
 					  selectedRadio.getText().toString();
 					  
-					  //clears text view
+					  //clears json results text view
 					  showJsonResults.setText("");
-					 
-						
+
 					}
-				  
+				
 				  //clears radio buttons
 				  locationOptions.clearCheck();
+				  
 				  //clears json data 
 				  showJsonResults.setText("");
+				  
+				  //clears the form data edit text field
+				  FormData.et.setText("");
+				 
+				
 			}
 		});
 		
@@ -162,8 +168,8 @@ public class MainActivity extends Activity {
 		//sets my showJsonResults text view to recieve the data from my json data
 		showJsonResults = FormData.outputTextView(this);
 		
-		
-		showJsonResults.setText("Results will show here");
+		//setting text to text views
+		showJsonResults.setText("JSON results will show here");
 		info.setText(myText);
 		resetBtn.setText(ctext);
 		
@@ -174,16 +180,10 @@ public class MainActivity extends Activity {
 		ll.addView(entryBox);
 		ll.addView(showJsonResults);
 		
-		//setting 
+		//setting content to view
 		setContentView(ll);
-		
-		
-		
+
 	}
-	
-	
-	
-	
 	
 	
 	/* (non-Javadoc)
