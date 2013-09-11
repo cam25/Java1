@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="editHint">Enter Zipcode here..(Ex.22314,20001,11221)</string>
-    <string name ="info">This app allows you to obtain an area dns or a lookup for a specific zipcode or state. By selecting a radio button or entering a zipcode in the text field you can recieve information on a location. </string>
+    <string name ="info">This app allows you to obtain a area dns or a lookup for a specific zipcode or state. By selecting a radio button or entering a zipcode in the text field you can receive information on a location. </string>
     <string name ="cbutton">Clear</string>
     <string name="nickel">Nickel</string>
     <string name ="penny">Penny</string>
