@@ -1,3 +1,12 @@
+/*
+ * project 			Java1Week1
+ * 
+ * package			com.cmozie.jsondata
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 10, 2013
+ */
 package com.cmozie.jsondata;
 
 import android.content.Context;
@@ -8,9 +17,21 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
-import com.cmozie.jsondata.*;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class FormData.
+ */
 public class FormData {
 
+	/**
+	 * Single entry with button.
+	 *
+	 * @param context the context
+	 * @param hint the hint
+	 * @param buttonText the button text
+	 * @return the linear layout
+	 */
 	public static LinearLayout singleEntryWithButton(Context context, String hint, String buttonText){
 		
 		LinearLayout ll = new LinearLayout(context);
@@ -45,16 +66,30 @@ public class FormData {
 		
 	}
 	
+	/**
+	 * Output text view.
+	 *
+	 * @param context the context
+	 * @return the text view
+	 */
 	public static TextView outputTextView(Context context){
 		
 		//creates a new text view for results of the json query.
 		TextView JSONoutputText = new TextView(context);
+	
 		JSONoutputText.setId(3);
 		
 		return JSONoutputText;
 		
 	}
 	
+	/**
+	 * Gets the options.
+	 *
+	 * @param context the context
+	 * @param options the options
+	 * @return the options
+	 */
 	public static RadioGroup getOptions(Context context, String[] options){
 		
 		RadioGroup boxes = new RadioGroup(context);
