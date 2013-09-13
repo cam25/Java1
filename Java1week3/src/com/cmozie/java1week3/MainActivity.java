@@ -1,8 +1,13 @@
 
 package com.cmozie.java1week3;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import com.cmozie.classes.*;
+import com.cmozie.libz.WebStuff;
 
 
 
@@ -25,6 +31,7 @@ public class MainActivity extends Activity {
 	SearchForm _search;
 	LocationDisplay _locationDetails;
 	FavDisplay _favorites;
+	Boolean _connected = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,11 +50,18 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View view) {
-				Log.i("CLICK HANDLER",_search.getField().getText().toString());
+				getLookup(_search.getField().getText().toString());
 				
 			}
 		});
 		
+		 
+		 //Detect net connection
+		 _connected = WebStuff.getConnectionStatus(_context);
+		 if (_connected) {
+			Log.i("Network Connection", WebStuff.getConnectionType(_context));
+			 
+		}
 		 
 		//add favorite display
 		 _favorites = new FavDisplay(_context);
@@ -76,4 +90,45 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	private void getLookup(String zipcode){
+		String baseURL = "http://zipfeeder.us/zip?";
+		String key = "key=EN4GbNMq";
+		String qs = "";
+		try{
+			qs = URLEncoder.encode(zipcode, "UTF-8");
+		}catch (Exception e) {
+			
+			Log.e("Bad URL","Encoding Problem");
+			qs = "";
+		}
+		URL finalURL;
+		try{
+			finalURL = new URL (baseURL + key + "&zips=" + qs);
+			Log.i("URL",finalURL.toString());
+			QuoteRequest qr = new QuoteRequest();
+			qr.execute(finalURL);
+		}catch (MalformedURLException e){
+			Log.e("BAD URL", "Malformed URL");
+			finalURL = null;
+		}
+	}
+	
+	private class QuoteRequest extends AsyncTask<URL, Void, String>{
+		@Override
+		protected String doInBackground(URL...urls){
+			String response = "";
+		for (URL url : urls) {
+			response = WebStuff.getURLStringResponse(url);
+		}
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result){
+			
+			Log.i("URL RESPONSE", result);
+		}
+		
+	}
+	
 }
