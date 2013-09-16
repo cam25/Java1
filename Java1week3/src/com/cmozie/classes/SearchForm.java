@@ -1,6 +1,7 @@
 package com.cmozie.classes;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 
 
 
+@SuppressLint("ViewConstructor")
 public class SearchForm extends LinearLayout {
 	
 	EditText _searchField;
