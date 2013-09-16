@@ -4,6 +4,11 @@ package com.cmozie.java1week3;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +19,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.cmozie.classes.*;
+import com.cmozie.libz.FileStuff;
 import com.cmozie.libz.WebStuff;
 
 
@@ -32,15 +40,18 @@ public class MainActivity extends Activity {
 	LocationDisplay _locationDetails;
 	FavDisplay _favorites;
 	Boolean _connected = false;
+	String oneObjectitem;
+	HashMap<String, String> _history;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		_context = this;
 		_appLayout = new LinearLayout(this);
-		
+		_history = getHistory();
 		 _search = new SearchForm(_context,"Enter Zipcode","Search");
-		
+		Log.i("HISTORY READ", _history.toString());
 		//ADD search handler
 		 
 		 //EditText searchField = _search.getField();	 
@@ -127,7 +138,58 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
+			try {
+				JSONObject json = new JSONObject(result);
+				JSONArray ja = json.getJSONArray("zips");
+				
+				
+				Log.i("results",result);
+				Boolean error =false;
+				if (error) {
+					
+					Toast toast = Toast.makeText(_context, "Invalid Zipcode", Toast.LENGTH_SHORT);
+					toast.show();
+					
+				}else {
+					
+					for (int i = 0; i < ja.length(); i++) {
+						JSONObject one = ja.getJSONObject(i);
+						
+						 oneObjectitem = one.getString("zip_code");
+					}
+					Log.i("one",oneObjectitem);
+					
+					
+					Toast toast = Toast.makeText(_context, "Valid Zipcode " + oneObjectitem, Toast.LENGTH_SHORT);
+					toast.show();
+					_history.put("oneObjectitem", ja.toString());
+					FileStuff.storeObjectFile(_context, "history", _history, false);
+					FileStuff.storeStringFile(_context, "temp", ja.toString(), true);
+					
+					
+					
+					}
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Log.e("JSON","JSON OBJECT EXCEPTION");
+			}
 		}
+		
+	}
+	@SuppressWarnings("unchecked")
+	private HashMap<String, String> getHistory(){
+		
+		Object stored = FileStuff.readObjectFile(_context, "history", false);
+		HashMap<String, String> history;
+		if (stored == null) {
+			Log.i("HISTORY","NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		}	else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
 		
 	}
 	
