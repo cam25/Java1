@@ -109,7 +109,15 @@ public class LocationDisplay extends GridLayout {
 	public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		_area_code.setText(area_code);
-		
+		_city.setText(city);
+		_county.setText(county);
+		_state.setText(state);
+		_latitude.setText(latitude);
+		_longitude.setText(longitude);
+		_csa_name.setText(csa_name);
+		_cbsa_name.setText(cbsa_name);
+		_region.setText(region);
+		_timezone.setText(timezone);
 	}
 
 }
