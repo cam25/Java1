@@ -104,5 +104,12 @@ public class LocationDisplay extends GridLayout {
 		
 	
 	}
+	
+	//set this method to void for no return but to just set the values of my json objects to the view next to the labels.
+	public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+		
+		_area_code.setText(area_code);
+		
+	}
 
 }

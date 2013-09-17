@@ -40,7 +40,18 @@ public class MainActivity extends Activity {
 	LocationDisplay _locationDetails;
 	FavDisplay _favorites;
 	Boolean _connected = false;
-	String oneObjectitem;
+	String _zipcode;
+	String _areaCode;
+	String _city;
+	String _county;
+	String _state;
+	String _latitude;
+	String _longitude;
+	String _csa_name;
+	String _cbsa_name;
+	String _region;
+	String _timezone;
+	
 	HashMap<String, String> _history;
 
 	@Override
@@ -151,16 +162,30 @@ public class MainActivity extends Activity {
 					toast.show();
 					
 				}else {
-					
+					//loops through json array 
 					for (int i = 0; i < ja.length(); i++) {
+						//sets a json object to access object values inside array
 						JSONObject one = ja.getJSONObject(i);
 						
-						 oneObjectitem = one.getString("zip_code");
+					//setting my text to the values to the strings of the json data
+					_zipcode = one.getString("zip_code");
+					_areaCode = one.getString("area_code");
+					_city = one.getString("city");
+					_state = one.getString("state");
+					_county = one.getString("county");
+					_csa_name = one.getString("csa_name");
+					_cbsa_name = one.getString("cbsa_name");
+					_latitude = one.getString("latitude");
+					_longitude = one.getString("longitude");
+					_region = one.getString("region");
+					_timezone = one.getString("time_zone");
+						 
 					}
-					Log.i("one",oneObjectitem);
+					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
+				
+					//set
 					
-					
-					Toast toast = Toast.makeText(_context, "Valid Zipcode " + oneObjectitem, Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					_history.put("oneObjectitem", ja.toString());
 					FileStuff.storeObjectFile(_context, "history", _history, false);
