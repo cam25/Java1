@@ -18,24 +18,35 @@ public class FavDisplay extends LinearLayout {
 	Button _remove;
 	Spinner _favList;
 	Context _context;
+	
 	ArrayList<String>_stacks = new ArrayList<String>();
 	
 	public FavDisplay(Context context) {
 		super(context);
 		_context = context;
+		
 		LayoutParams lp;
+		
 		_stacks.add("Select a Zipcode");
+		
 		_favList = new Spinner(context);
+		
 		lp = new LayoutParams(0,LayoutParams.WRAP_CONTENT,1.0f);
+		
 		_favList.setLayoutParams(lp);
 		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, _stacks);
 		listAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		_favList.setAdapter(listAdapter);
+		
 		_favList.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
 			@Override
 			public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
-				Log.i("Favorite Selected", parent.getItemAtPosition(pos).toString());
+				String selected = parent.getItemAtPosition(pos).toString();
+				Log.i("Favorite Selected", selected);
+				
+				
+				
 			}
 			
 			@Override

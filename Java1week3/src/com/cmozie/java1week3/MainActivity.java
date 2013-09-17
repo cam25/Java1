@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmozie.classes.*;
@@ -53,6 +54,8 @@ public class MainActivity extends Activity {
 	String _timezone;
 	
 	HashMap<String, String> _history;
+	TextView _showJsonData;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,10 @@ public class MainActivity extends Activity {
 		_context = this;
 		_appLayout = new LinearLayout(this);
 		_history = getHistory();
-		 _search = new SearchForm(_context,"Enter Zipcode","Search");
+		String _placeholderText1 = getResources().getString(R.string.textFieldText);
+		String _searchButnText = getResources().getString(R.string.searchButn);
+		
+		 _search = new SearchForm(_context,_placeholderText1,_searchButnText);
 		Log.i("HISTORY READ", _history.toString());
 		//ADD search handler
 		 
@@ -94,6 +100,7 @@ public class MainActivity extends Activity {
 		_appLayout.addView(_search);
 		_appLayout.addView(_locationDetails);
 		_appLayout.addView(_favorites);
+		//_appLayout.addView(_showJsonData);
 
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
 		setContentView(_appLayout);
@@ -112,7 +119,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	private void getLookup(String zipcode){
+	public void getLookup(String zipcode){
 		String baseURL = "http://zipfeeder.us/zip?";
 		String key = "key=EN4GbNMq";
 		String qs = "";
