@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import com.cmozie.classes.LocationDisplay;
+import com.cmozie.java1week3.MainActivity;
 
 
 
@@ -29,7 +30,8 @@ import com.cmozie.classes.LocationDisplay;
 		String _cbsa_name;
 		String _region;
 		String _timezone;
-		LocationDisplay locationDisplay;
+		LocationDisplay _locationDetails ;
+	
 		
 		
 		@Override
@@ -78,10 +80,11 @@ protected void onPostExecute(String result){
 					}
 					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 					
-					
+					 _locationDetails = new LocationDisplay(_context);
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-					 locationDisplay.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+					 _locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 					
+					 
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					

@@ -96,6 +96,8 @@ public class MainActivity extends Activity {
 		 
 		 
 		
+		
+		
 		_locationDetails = new LocationDisplay(_context);
 		_appLayout.addView(_search);
 		_appLayout.addView(_locationDetails);
@@ -192,7 +194,7 @@ public class MainActivity extends Activity {
 				
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 					_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
-					
+				
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
