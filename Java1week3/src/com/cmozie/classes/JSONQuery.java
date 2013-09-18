@@ -33,7 +33,7 @@ public class JSONQuery {
 	String _timezone;
 	LocationDisplay _locationDetails;
 	
-	public void getLookup(String zipcode){
+	public static void getLookup(String zipcode){
 		String baseURL = "http://zipfeeder.us/zip?";
 		String key = "key=EN4GbNMq";
 		String qs = "";

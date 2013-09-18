@@ -47,6 +47,8 @@ public class FavDisplay extends LinearLayout {
 				String selected = parent.getItemAtPosition(pos).toString();
 				Log.i("Favorite Selected", selected);
 				
+				//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
+				JSONQuery.getLookup(selected);
 			
 			}
 			
