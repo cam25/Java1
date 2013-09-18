@@ -77,7 +77,8 @@ protected void onPostExecute(String result){
 						 
 					}
 					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
-				
+					
+					
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 					 locationDisplay.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 					

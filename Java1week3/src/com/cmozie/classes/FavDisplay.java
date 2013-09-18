@@ -19,6 +19,7 @@ public class FavDisplay extends LinearLayout {
 	Button _remove;
 	Spinner _favList;
 	Context _context;
+	LocationDisplay _LocationDisplay; 
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
  
@@ -29,7 +30,7 @@ public class FavDisplay extends LinearLayout {
 		
 		LayoutParams lp;
 		
-		_stacks.add("Select a Zipcode");
+		_stacks.add("Popular Zipcodes");
 		
 		_favList = new Spinner(context);
 		
@@ -52,37 +53,46 @@ public class FavDisplay extends LinearLayout {
 			
 			}
 			
+			
 			@Override
 			public void onNothingSelected(AdapterView<?>parent){
 				Log.i("Aborted", "None Selected");
 				
 			}
 			
+			
 		});
 		
 		
 		updateFavs();
 		
-		_add = new Button(_context);
-		_add.setText("+");
-		_remove = new Button(_context);
-		_remove.setText("-");
+		//_add = new Button(_context);
+		//_add.setText("+");
+		//_remove = new Button(_context);
+		//_remove.setText("-");
+		
+		
 		
 		this.addView(_favList);
-		this.addView(_add);
-		this.addView(_remove);
+		//this.addView(_add);
+		//this.addView(_remove);
 		
 		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		this.setLayoutParams(lp);
 	}
+	
+
 	private void updateFavs(){
+		
 		
 		_stacks.add("22304");
 		_stacks.add("21206");
 		_stacks.add("20785");
 		
+	
 		
 		
 	}
 
+	
 }
