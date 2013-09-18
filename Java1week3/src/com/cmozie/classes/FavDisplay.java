@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+
 public class FavDisplay extends LinearLayout {
 	
 	Button _add;
@@ -20,6 +21,7 @@ public class FavDisplay extends LinearLayout {
 	Context _context;
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
+ 
 	
 	public FavDisplay(Context context) {
 		super(context);
@@ -45,8 +47,7 @@ public class FavDisplay extends LinearLayout {
 				String selected = parent.getItemAtPosition(pos).toString();
 				Log.i("Favorite Selected", selected);
 				
-				
-				
+			
 			}
 			
 			@Override

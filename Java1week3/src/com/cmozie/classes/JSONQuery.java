@@ -1,46 +1,25 @@
-
-package com.cmozie.java1week3;
+package com.cmozie.classes;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cmozie.classes.*;
-import com.cmozie.libz.FileStuff;
 import webConnections.*;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class MainActivity.
- */
-public class MainActivity extends Activity {
 
-	
+public class JSONQuery {
+
 	Context _context;
-	LinearLayout _appLayout;
-	SearchForm _search;
-	LocationDisplay _locationDetails;
-	FavDisplay _favorites;
-	Boolean _connected = false;
 	String _zipcode;
 	String _areaCode;
 	String _city;
@@ -52,73 +31,8 @@ public class MainActivity extends Activity {
 	String _cbsa_name;
 	String _region;
 	String _timezone;
+	LocationDisplay _locationDetails;
 	
-	HashMap<String, String> _history;
-	TextView _showJsonData;
-	
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		_context = this;
-		_appLayout = new LinearLayout(this);
-		_history = getHistory();
-		String _placeholderText1 = getResources().getString(R.string.textFieldText);
-		String _searchButnText = getResources().getString(R.string.searchButn);
-		
-		 _search = new SearchForm(_context,_placeholderText1,_searchButnText);
-		Log.i("HISTORY READ", _history.toString());
-		//ADD search handler
-		 
-		 //EditText searchField = _search.getField();	 
-		 Button searchButton = _search.getButton();
-		 
-		 searchButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				getLookup(_search.getField().getText().toString());
-				
-			}
-		});
-		
-		 
-		 //webConnection
-		 _connected = WebStuff.getConnectionStatus(_context);
-		 if (_connected) {
-			Log.i("Network Connection", WebStuff.getConnectionType(_context));
-			 
-		}
-		 
-		//add favorite display
-		 _favorites = new FavDisplay(_context);
-		 
-		 
-		
-		_locationDetails = new LocationDisplay(_context);
-		_appLayout.addView(_search);
-		_appLayout.addView(_locationDetails);
-		_appLayout.addView(_favorites);
-		//_appLayout.addView(_showJsonData);
-
-		_appLayout.setOrientation(LinearLayout.VERTICAL);
-		setContentView(_appLayout);
-
-	}
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 	public void getLookup(String zipcode){
 		String baseURL = "http://zipfeeder.us/zip?";
 		String key = "key=EN4GbNMq";
@@ -196,10 +110,7 @@ public class MainActivity extends Activity {
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
-					_history.put("oneObjectitem", ja.toString());
 					
-					FileStuff.storeObjectFile(_context, "history", _history, false);
-					FileStuff.storeStringFile(_context, "temp", ja.toString(), true);
 					
 					
 					
@@ -213,19 +124,7 @@ public class MainActivity extends Activity {
 		}
 		
 	}
-	@SuppressWarnings("unchecked")
-	private HashMap<String, String> getHistory(){
-		
-		Object stored = FileStuff.readObjectFile(_context, "history", false);
-		HashMap<String, String> history;
-		if (stored == null) {
-			Log.i("HISTORY","NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		}	else {
-			history = (HashMap<String, String>) stored;
-		}
-		return history;
-		
-	}
+
+
 	
 }
