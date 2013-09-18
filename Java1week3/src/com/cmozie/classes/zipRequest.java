@@ -1,67 +1,44 @@
 package com.cmozie.classes;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import webConnections.*;
-
+import webConnections.WebStuff;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-import com.cmozie.classes.*;
 
 
 
-public class JSONQuery {
-
-	Context _context;
-	String _zipcode;
-	String _areaCode;
-	String _city;
-	String _county;
-	String _state;
-	String _latitude;
-	String _longitude;
-	String _csa_name;
-	String _cbsa_name;
-	String _region;
-	String _timezone;
-	LocationDisplay _locationDetails;
-	
-	static  URL getLookup(String zipcode){
-		String baseURL = "http://zipfeeder.us/zip?";
-		String key = "key=EN4GbNMq";
-		String qs = "";
-		try{
-			qs = URLEncoder.encode(zipcode, "UTF-8");
-		}catch (Exception e) {
-			
-			Log.e("Bad URL","Encoding Problem");
-			qs = "";
-		}
-		URL finalURL;
-		try{
-			finalURL = new URL (baseURL + key + "&zips=" + qs);
-			Log.i("URL",finalURL.toString());
-			//update
-			zipRequest qr = new zipRequest();
-			qr.execute(finalURL);
-		}catch (MalformedURLException e){
-			Log.e("BAD URL", "Malformed URL");
-			finalURL = null;
-		}
-		return finalURL;
-	}
-	
-	
+	public class zipRequest extends AsyncTask<URL, Void, String>{
 		
-		protected void onPostExecute(String result){
+		Context _context;
+		String _zipcode;
+		String _areaCode;
+		String _city;
+		String _county;
+		String _state;
+		String _latitude;
+		String _longitude;
+		String _csa_name;
+		String _cbsa_name;
+		String _region;
+		String _timezone;
+		LocationDisplay _locationDetails;
+		@Override
+		protected String doInBackground(URL...urls){
+			String response = "";
+		for (URL url : urls) {
+			response = WebStuff.getURLStringResponse(url);
+		}
+			return response;
+		}
+		
+protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
 			try {
@@ -116,8 +93,7 @@ public class JSONQuery {
 				Log.e("JSON","JSON OBJECT EXCEPTION");
 			}
 		}
-		
-	}
-
+}
 
 	
+
