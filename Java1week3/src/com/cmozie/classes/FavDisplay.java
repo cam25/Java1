@@ -11,28 +11,31 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class FavDisplay extends LinearLayout {
 	
 	Button _add;
 	Button _remove;
+	TextView _popularZips;
 	Spinner _favList;
 	Context _context;
 	LocationDisplay _LocationDisplay; 
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
  
-	
+
 	public FavDisplay(Context context) {
 		super(context);
 		_context = context;
 		
 		LayoutParams lp;
 		
-		_stacks.add("Popular Zipcodes");
+		
 		
 		_favList = new Spinner(context);
+		updateFavs();
 		
 		lp = new LayoutParams(0,LayoutParams.WRAP_CONTENT,1.0f);
 		
@@ -50,9 +53,8 @@ public class FavDisplay extends LinearLayout {
 				
 				//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
 				JSONQuery.getLookup(selected);
-			
+				
 			}
-			
 			
 			@Override
 			public void onNothingSelected(AdapterView<?>parent){
@@ -64,21 +66,17 @@ public class FavDisplay extends LinearLayout {
 		});
 		
 		
-		updateFavs();
-		
-		//_add = new Button(_context);
-		//_add.setText("+");
-		//_remove = new Button(_context);
-		//_remove.setText("-");
 		
 		
 		
 		this.addView(_favList);
+		
 		//this.addView(_add);
 		//this.addView(_remove);
 		
 		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		this.setLayoutParams(lp);
+		
 	}
 	
 

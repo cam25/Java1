@@ -18,6 +18,7 @@ import com.cmozie.java1week3.MainActivity;
 
 	public class zipRequest extends AsyncTask<URL, Void, String>{
 		
+		
 		Context _context;
 		String _zipcode;
 		String _areaCode;
@@ -30,7 +31,7 @@ import com.cmozie.java1week3.MainActivity;
 		String _cbsa_name;
 		String _region;
 		String _timezone;
-		LocationDisplay _locationDetails ;
+		LocationDisplay _locationDetails = new LocationDisplay(MainActivity._context);
 	
 		
 		
@@ -80,12 +81,12 @@ protected void onPostExecute(String result){
 					}
 					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 					
-					 _locationDetails = new LocationDisplay(_context);
-					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-					 _locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
-					
 					 
-					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
+					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
+					//_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+					
+					 MainActivity._locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+					Toast toast = Toast.makeText(MainActivity._context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
 					

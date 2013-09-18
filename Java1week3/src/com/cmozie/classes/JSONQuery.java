@@ -6,15 +6,9 @@ import java.net.URLEncoder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import webConnections.*;
-
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-import com.cmozie.classes.*;
 
 
 

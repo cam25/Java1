@@ -11,12 +11,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +30,6 @@ import com.cmozie.libz.FileStuff;
 import webConnections.*;
 
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class MainActivity.
@@ -35,11 +37,13 @@ import webConnections.*;
 public class MainActivity extends Activity {
 
 	
-	Context _context;
+	public static Context _context;
 	LinearLayout _appLayout;
 	SearchForm _search;
-	LocationDisplay _locationDetails;
+	
+	public static LocationDisplay _locationDetails;
 	FavDisplay _favorites;
+	TextView _popularZips;
 	Boolean _connected = false;
 	String _zipcode;
 	String _areaCode;
@@ -55,6 +59,7 @@ public class MainActivity extends Activity {
 	
 	HashMap<String, String> _history;
 	TextView _showJsonData;
+	Button _pop;
 	
 
 	@Override
@@ -63,22 +68,33 @@ public class MainActivity extends Activity {
 		
 		_context = this;
 		_appLayout = new LinearLayout(this);
+		_popularZips = new TextView(this);
 		_history = getHistory();
+		//_search.setClickable(false);
 		String _placeholderText1 = getResources().getString(R.string.textFieldText);
 		String _searchButnText = getResources().getString(R.string.searchButn);
 		
 		 _search = new SearchForm(_context,_placeholderText1,_searchButnText);
 		Log.i("HISTORY READ", _history.toString());
 		//ADD search handler
-		 
+		
 		 //EditText searchField = _search.getField();	 
 		 Button searchButton = _search.getButton();
-		 
+		 searchButton.setClickable(false);
+		if (_search.toString().length() <1 ) {
+			Log.i("PRESSED","PRESSED");
+		}
+		
 		 searchButton.setOnClickListener(new View.OnClickListener() {
-			
+		
 			@Override
 			public void onClick(View view) {
-				getLookup(_search.getField().getText().toString());
+				
+		
+					Log.i("PRESSED","PRESSED!");
+					getLookup(_search.getField().getText().toString());
+				
+				
 				
 			}
 		});
@@ -89,19 +105,45 @@ public class MainActivity extends Activity {
 		 if (_connected) {
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
 			 
+		}else if(!_connected) {
+			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+			alert.setTitle("Connection Required!");
+			alert.setMessage("You need to connect to an internet service!");
+			alert.setCancelable(false);
+			alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					dialog.cancel();
+				}
+			});
+			alert.show();
+			searchButton.setClickable(false);
 		}
-		 
+		 _pop = new Button(this);
+		 _pop.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					_appLayout.addView(_favorites);
+					_pop.setClickable(false);
+				}
+			});
 		//add favorite display
 		 _favorites = new FavDisplay(_context);
-		 
-		 
+		 _popularZips.setText("Popular Zipcodes");
+		 _pop.setText("Click here for popular zipcodes");
 		
 		
 		
 		_locationDetails = new LocationDisplay(_context);
 		_appLayout.addView(_search);
 		_appLayout.addView(_locationDetails);
-		_appLayout.addView(_favorites);
+		//_appLayout.addView(_popularZips);
+		_appLayout.addView(_pop);
+		
 		//_appLayout.addView(_showJsonData);
 
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
