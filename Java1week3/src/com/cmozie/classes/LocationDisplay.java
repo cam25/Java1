@@ -1,9 +1,22 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 package com.cmozie.classes;
 
 import android.content.Context;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LocationDisplay.
+ */
 public class LocationDisplay extends GridLayout {
 	Context _context;
 	TextView _zipcode;
@@ -19,6 +32,11 @@ public class LocationDisplay extends GridLayout {
 	TextView _timezone;
 	
 	
+	/**
+	 * Instantiates a new location display.
+	 *
+	 * @param context the context
+	 */
 	public LocationDisplay(Context context){
 		super(context);
 		
@@ -106,6 +124,20 @@ public class LocationDisplay extends GridLayout {
 	}
 	
 	//set this method to void for no return but to just set the values of my json objects to the view next to the labels.
+	/**
+	 * Location info.
+	 *
+	 * @param area_code the area_code
+	 * @param city the city
+	 * @param county the county
+	 * @param state the state
+	 * @param latitude the latitude
+	 * @param longitude the longitude
+	 * @param csa_name the csa_name
+	 * @param cbsa_name the cbsa_name
+	 * @param region the region
+	 * @param timezone the timezone
+	 */
 	public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		_area_code.setText(area_code);

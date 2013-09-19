@@ -1,13 +1,22 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 package com.cmozie.classes;
 
 import java.net.URL;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import webConnections.WebStuff;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +25,10 @@ import com.cmozie.java1week3.MainActivity;
 
 
 
+	// TODO: Auto-generated Javadoc
+/**
+	 * The Class zipRequest.
+	 */
 	public class zipRequest extends AsyncTask<URL, Void, String>{
 		
 		
@@ -35,6 +48,9 @@ import com.cmozie.java1week3.MainActivity;
 	
 		
 		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected String doInBackground(URL...urls){
 			String response = "";
@@ -44,6 +60,9 @@ import com.cmozie.java1week3.MainActivity;
 			return response;
 		}
 		
+/* (non-Javadoc)
+ * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+ */
 protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
@@ -53,13 +72,7 @@ protected void onPostExecute(String result){
 				
 				
 				Log.i("results",result);
-				Boolean error =false;
-				if (error) {
-					
-					Toast toast = Toast.makeText(_context, "Invalid Zipcode", Toast.LENGTH_SHORT);
-					toast.show();
-					
-				}else {
+				
 					//loops through json array 
 					for (int i = 0; i < ja.length(); i++) {
 						//sets a json object to access object values inside array
@@ -89,14 +102,23 @@ protected void onPostExecute(String result){
 					Toast toast = Toast.makeText(MainActivity._context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
-					
-					
-					
-					
-					}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				
+				AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+				alert.setTitle("Error");
+				alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct.");
+				alert.setCancelable(false);
+				alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.cancel();
+					}
+				});
+				alert.show();
 				e.printStackTrace();
 				Log.e("JSON","JSON OBJECT EXCEPTION");
 			}

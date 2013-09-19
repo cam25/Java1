@@ -1,3 +1,12 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 package com.cmozie.classes;
 
 
@@ -9,6 +18,10 @@ import android.widget.LinearLayout;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SearchForm.
+ */
 @SuppressLint("ViewConstructor")
 public class SearchForm extends LinearLayout {
 	
@@ -16,6 +29,13 @@ public class SearchForm extends LinearLayout {
 	Button _searchButton;
 	
 	
+	/**
+	 * Instantiates a new search form.
+	 *
+	 * @param context the context
+	 * @param hint the hint
+	 * @param buttonText the button text
+	 */
 	public SearchForm(Context context,String hint, String buttonText) {
 		
 		//allows to import the value
@@ -40,11 +60,22 @@ public class SearchForm extends LinearLayout {
 		this.setLayoutParams(lp);
 		
 	}
+	
+	/**
+	 * Gets the field.
+	 *
+	 * @return the field
+	 */
 	public EditText getField(){
 		
 		return _searchField;
 	}
 
+	/**
+	 * Gets the button.
+	 *
+	 * @return the button
+	 */
 	public Button getButton(){
 		
 		return _searchButton;

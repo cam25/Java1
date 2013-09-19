@@ -1,3 +1,12 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.java1week3
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 
 package com.cmozie.java1week3;
 
@@ -21,7 +30,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,16 +45,25 @@ import webConnections.*;
  */
 public class MainActivity extends Activity {
 
-	
+	//--public statics
 	public static Context _context;
-	LinearLayout _appLayout;
-	SearchForm _search;
-	
 	public static LocationDisplay _locationDetails;
 	public static Button searchButton;
-	FavDisplay _favorites;
+	
+	
+	//layout
+	LinearLayout _appLayout;
 	TextView _popularZips;
+	Button _pop;
+	
+	//bool
 	Boolean _connected = false;
+	
+	//class declarations
+	FavDisplay _favorites;
+	SearchForm _search;
+	
+	//strings
 	String _zipcode;
 	String _areaCode;
 	String _city;
@@ -61,10 +78,13 @@ public class MainActivity extends Activity {
 
 	
 	HashMap<String, String> _history;
-	TextView _showJsonData;
-	Button _pop;
+	
+	
 	
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,44 +92,51 @@ public class MainActivity extends Activity {
 		_context = this;
 		_appLayout = new LinearLayout(this);
 		_popularZips = new TextView(this);
+		
+		//sets _history to the get history call
 		_history = getHistory();
-		//_search.setClickable(false);
+		
+		//accessing resources
 		String _placeholderText1 = getResources().getString(R.string.textFieldText);
 		String _searchButnText = getResources().getString(R.string.searchButn);
 		
+		// _search is the search form
 		 _search = new SearchForm(_context,_placeholderText1,_searchButnText);
+		 
+		 //logs the _history text if inside local storage
 		Log.i("HISTORY READ", _history.toString());
-		//ADD search handler
-		
-		 //EditText searchField = _search.getField();	 
+	 
+		//allows to target the search button in the search form to set onclick event
 		searchButton = _search.getButton();
 	
-		//EditText et = _search.getField();
+		//search button on click listener
 		 searchButton.setOnClickListener(new View.OnClickListener() {
 		
 			@Override
 			public void onClick(View view) {
-				EditText codes = (EditText) _search.getField();
-				
 			
-				String text = codes.getText().toString();
-				Log.i("HELP",text);
-			
-					getLookup(_search.getField().getText().toString());
+					//if the search button is pressed and the text field length is greater than 1 go ahead and search
+					if (searchButton.isPressed() && _search.getField().length() > 1) {
+						getLookup(_search.getField().getText().toString());
+						searchButton.setEnabled(true);
+					}
 					
-					
-				
+					//empties the search field
+				_search.getField().setText("");
 				
 			}
 		});
 		
 		 
-		 //webConnection
+		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
-			 
+			
+			//if no connection
 		}else if(!_connected) {
+			
+			//alert for connection
 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 			alert.setTitle("Connection Required!");
 			alert.setMessage("You need to connect to an internet service!");
@@ -125,18 +152,31 @@ public class MainActivity extends Activity {
 			alert.show();
 			searchButton.setClickable(false);
 		}
+		 
+		 //popular zipcodes onclick
 		 _pop = new Button(this);
 		 _pop.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					
+					//adds the _favorites/spinner to the view button is clicked
 					_appLayout.addView(_favorites);
+					
+					//sets button to non clickable once clicked once 
 					_pop.setClickable(false);
+					
+					
 				}
 			});
+		 //if the search text field is < 1 or the text field is selected then enable else dont
+		 if (_search.getField().length() < 1 || _search.getField().isSelected()) {
+			 searchButton.setEnabled(true);
+		}else  {
+			searchButton.setEnabled(false);
+		}
 		 
-		
 		
 		//add favorite display
 		 _favorites = new FavDisplay(_context);
@@ -144,16 +184,18 @@ public class MainActivity extends Activity {
 		 _pop.setText("Click here for popular zipcodes");
 		
 		
-		
+		//sets _locationDetails to a new LocationDisplay object
 		_locationDetails = new LocationDisplay(_context);
+		
+		//adding contents to view
 		_appLayout.addView(_search);
 		_appLayout.addView(_locationDetails);
-		//_appLayout.addView(_popularZips);
 		_appLayout.addView(_pop);
 		
-		//_appLayout.addView(_showJsonData);
-
+		//sets orientation of UI
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
+		
+		//puts the content on the view
 		setContentView(_appLayout);
 
 	}
@@ -169,23 +211,56 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	//get lookup function that allows me to query the api on on click of the search --see searchButton.OnClick 
+	/**
+	 * Gets the lookup.
+	 *
+	 * @param zipcode the zipcode
+	 * @return the lookup
+	 */
 	public void getLookup(String zipcode){
+		
+		//this is the base url of the api
 		String baseURL = "http://zipfeeder.us/zip?";
+		
+		//key needed to use api
 		String key = "key=EN4GbNMq";
+		//this empty string accepts an empty string which will be for zipcodes entered
 		String qs = "";
 		try{
+			//allows the empty string to recieve the zipcode string encoded
 			qs = URLEncoder.encode(zipcode, "UTF-8");
 		}catch (Exception e) {
 			
+			//if an error in the api show the bad url alert
+			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+			alert.setTitle("Bad URL");
+			alert.setMessage("An error occured the in the construction of the URL.Encoding problem.");
+			alert.setCancelable(false);
+			alert.setPositiveButton("Sorry", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					dialog.cancel();
+				}
+			});
+			alert.show();
 			Log.e("Bad URL","Encoding Problem");
 			qs = "";
 		}
+		
+		//creates finalURL as a URL
 		URL finalURL;
 		try{
+			//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
 			finalURL = new URL (baseURL + key + "&zips=" + qs);
+			
+			//logs the final url query
 			Log.i("URL",finalURL.toString());
-			QuoteRequest qr = new QuoteRequest();
+			
+			mainZipRequest qr = new mainZipRequest();
 			qr.execute(finalURL);
 		}catch (MalformedURLException e){
 			Log.e("BAD URL", "Malformed URL");
@@ -193,7 +268,14 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	private class QuoteRequest extends AsyncTask<URL, Void, String>{
+	/**
+	 * The Class mainZipRequest.
+	 */
+	private class mainZipRequest extends AsyncTask<URL, Void, String>{
+		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected String doInBackground(URL...urls){
 			String response = "";
@@ -203,23 +285,24 @@ public class MainActivity extends Activity {
 			return response;
 		}
 		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
 		@Override
 		protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
 			try {
+				
+				//creates a json object and json array to access my json objects
 				JSONObject json = new JSONObject(result);
 				JSONArray ja = json.getJSONArray("zips");
 				
 				
 				Log.i("results",result);
-				Boolean error =false;
-				if (error) {
-					
-					Toast toast = Toast.makeText(_context, "Invalid Zipcode", Toast.LENGTH_SHORT);
-					toast.show();
-					
-				}else {
+				
+			
+				 
 					//loops through json array 
 					for (int i = 0; i < ja.length(); i++) {
 						//sets a json object to access object values inside array
@@ -244,34 +327,75 @@ public class MainActivity extends Activity {
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 					_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 				
+					//confims zipcode is valie
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
-					_history.put("oneObjectitem", ja.toString());
+					_history.put("Location: ", ja.toString());
 					
+					//store the location into local storage
 					FileStuff.storeObjectFile(_context, "history", _history, false);
 					FileStuff.storeStringFile(_context, "temp", ja.toString(), true);
 					
 					
 					
-					}
+					
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				//Alert for any error in entering into textfield if not a zipcode
+				AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+				alert.setTitle("Error");
+				alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct. USA zipcodes only.");
+				alert.setCancelable(false);
+				alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.cancel();
+					}
+				});
+				alert.show();
 				e.printStackTrace();
 				Log.e("JSON","JSON OBJECT EXCEPTION");
 			}
 		}
-		
 	}
+	
+	/**
+	 * Gets the history.
+	 *
+	 * @return the history
+	 */
 	@SuppressWarnings("unchecked")
 	private HashMap<String, String> getHistory(){
 		
+		//creates an object named stored that reads the object that is stored in local storage
 		Object stored = FileStuff.readObjectFile(_context, "history", false);
+		
+		//declares the hashmap history variable
 		HashMap<String, String> history;
+		
+		//if theres an error fire alert
 		if (stored == null) {
 			Log.i("HISTORY","NO HISTORY FILE FOUND");
+			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+			alert.setTitle("Saved Files");
+			alert.setMessage("There are no saved zipcodes in local storage. Once a search is made the zipcode will be saved.");
+			alert.setCancelable(false);
+			alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					dialog.cancel();
+				}
+			});
+			alert.show();
 			history = new HashMap<String, String>();
+			
+			//else store it into the history
 		}	else {
 			history = (HashMap<String, String>) stored;
 		}

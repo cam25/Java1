@@ -1,3 +1,12 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 package com.cmozie.classes;
 
 import java.util.ArrayList;
@@ -14,18 +23,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FavDisplay.
+ */
 public class FavDisplay extends LinearLayout {
 	
 	Button _add;
 	Button _remove;
 	TextView _popularZips;
-	Spinner _favList;
+	public static	Spinner _favList;
 	Context _context;
 	LocationDisplay _LocationDisplay; 
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
  
 
+	/**
+	 * Instantiates a new fav display.
+	 *
+	 * @param context the context
+	 */
 	public FavDisplay(Context context) {
 		super(context);
 		_context = context;
@@ -66,28 +84,31 @@ public class FavDisplay extends LinearLayout {
 		});
 		
 		
-		
-		
-		
 		this.addView(_favList);
-		
-		//this.addView(_add);
-		//this.addView(_remove);
-		
+
 		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		this.setLayoutParams(lp);
 		
 	}
 	
 
+	/**
+	 * Update favs.
+	 */
 	private void updateFavs(){
 		
+		//popular zipcodes using .add to add to spinner
 		
-		_stacks.add("22304");
-		_stacks.add("21206");
-		_stacks.add("20785");
-		
-	
+		//san francisco
+		_stacks.add("94105");
+		//Miami
+		_stacks.add("33133");
+		//washington dc
+		_stacks.add("20001");
+		//time square
+		_stacks.add("10036");
+		//Chicago
+		_stacks.add("60106");
 		
 		
 	}

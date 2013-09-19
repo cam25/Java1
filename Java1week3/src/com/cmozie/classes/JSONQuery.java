@@ -1,3 +1,12 @@
+/*
+ * project 			Java1Week3
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Sep 19, 2013
+ */
 package com.cmozie.classes;
 
 import java.net.MalformedURLException;
@@ -6,12 +15,19 @@ import java.net.URLEncoder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JSONQuery.
+ */
 public class JSONQuery {
 
 	Context _context;
@@ -28,6 +44,12 @@ public class JSONQuery {
 	String _timezone;
 	LocationDisplay _locationDetails;
 	
+	/**
+	 * Gets the lookup.
+	 *
+	 * @param zipcode the zipcode
+	 * @return the lookup
+	 */
 	static  URL getLookup(String zipcode){
 		String baseURL = "http://zipfeeder.us/zip?";
 		String key = "key=EN4GbNMq";
@@ -43,9 +65,11 @@ public class JSONQuery {
 		try{
 			finalURL = new URL (baseURL + key + "&zips=" + qs);
 			Log.i("URL",finalURL.toString());
-			//update
+			
+			//zipRequest class used here
 			zipRequest qr = new zipRequest();
 			qr.execute(finalURL);
+			
 		}catch (MalformedURLException e){
 			Log.e("BAD URL", "Malformed URL");
 			finalURL = null;
@@ -53,8 +77,11 @@ public class JSONQuery {
 		return finalURL;
 	}
 	
-	
-		
+		/**
+		 * On post execute.
+		 *
+		 * @param result the result
+		 */
 		protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
@@ -64,13 +91,7 @@ public class JSONQuery {
 				
 				
 				Log.i("results",result);
-				Boolean error =false;
-				if (error) {
-					
-					Toast toast = Toast.makeText(_context, "Invalid Zipcode", Toast.LENGTH_SHORT);
-					toast.show();
-					
-				}else {
+				
 					//loops through json array 
 					for (int i = 0; i < ja.length(); i++) {
 						//sets a json object to access object values inside array
@@ -98,16 +119,26 @@ public class JSONQuery {
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
-					
-					
-					
-					
-					}
+				
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+				alert.setTitle("Error");
+				alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct.");
+				alert.setCancelable(false);
+				alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.cancel();
+					}
+				});
+				alert.show();
 				e.printStackTrace();
 				Log.e("JSON","JSON OBJECT EXCEPTION");
+				
 			}
 		}
 		
