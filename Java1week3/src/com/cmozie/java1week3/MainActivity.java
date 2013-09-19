@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
 	SearchForm _search;
 	
 	public static LocationDisplay _locationDetails;
+	public static Button searchButton;
 	FavDisplay _favorites;
 	TextView _popularZips;
 	Boolean _connected = false;
@@ -56,6 +58,7 @@ public class MainActivity extends Activity {
 	String _cbsa_name;
 	String _region;
 	String _timezone;
+
 	
 	HashMap<String, String> _history;
 	TextView _showJsonData;
@@ -79,21 +82,22 @@ public class MainActivity extends Activity {
 		//ADD search handler
 		
 		 //EditText searchField = _search.getField();	 
-		 Button searchButton = _search.getButton();
-		 searchButton.setClickable(false);
-		if (_search.toString().length() <1 ) {
-			Log.i("PRESSED","PRESSED");
-		}
-		
+		searchButton = _search.getButton();
+	
+		//EditText et = _search.getField();
 		 searchButton.setOnClickListener(new View.OnClickListener() {
 		
 			@Override
 			public void onClick(View view) {
+				EditText codes = (EditText) _search.getField();
 				
-		
-					Log.i("PRESSED","PRESSED!");
+			
+				String text = codes.getText().toString();
+				Log.i("HELP",text);
+			
 					getLookup(_search.getField().getText().toString());
-				
+					
+					
 				
 				
 			}
@@ -131,6 +135,9 @@ public class MainActivity extends Activity {
 					_pop.setClickable(false);
 				}
 			});
+		 
+		
+		
 		//add favorite display
 		 _favorites = new FavDisplay(_context);
 		 _popularZips.setText("Popular Zipcodes");
