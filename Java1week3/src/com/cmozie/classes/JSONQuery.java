@@ -50,6 +50,7 @@ public class JSONQuery {
 	 * @param zipcode the zipcode
 	 * @return the lookup
 	 */
+	//set the getLookup function to a static URL so im able to return the final url of the query string and call the zipRequest class which holds my async request and pass the final url to that.
 	static  URL getLookup(String zipcode){
 		String baseURL = "http://zipfeeder.us/zip?";
 		String key = "key=EN4GbNMq";
@@ -66,7 +67,7 @@ public class JSONQuery {
 			finalURL = new URL (baseURL + key + "&zips=" + qs);
 			Log.i("URL",finalURL.toString());
 			
-			//zipRequest class used here
+			//zipRequest passed here for usage of the async
 			zipRequest qr = new zipRequest();
 			qr.execute(finalURL);
 			
@@ -86,6 +87,7 @@ public class JSONQuery {
 			
 			Log.i("URL RESPONSE", result);
 			try {
+				//setting my json object and array
 				JSONObject json = new JSONObject(result);
 				JSONArray ja = json.getJSONArray("zips");
 				
@@ -111,11 +113,12 @@ public class JSONQuery {
 					_timezone = one.getString("time_zone");
 						 
 					}
-					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
+					Log.i("locations ", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 				
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 					_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 					
+					//confirms a valid zipcod here
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
@@ -123,6 +126,8 @@ public class JSONQuery {
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				
+				//alert for json exception
 				AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 				alert.setTitle("Error");
 				alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct.");
