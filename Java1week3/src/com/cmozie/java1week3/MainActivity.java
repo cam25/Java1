@@ -53,7 +53,8 @@ public class MainActivity extends Activity {
 	
 	//layout
 	LinearLayout _appLayout;
-	TextView _popularZips;
+	TextView _localStorageText;
+	TextView _localStorageLabel;
 	Button _pop;
 	
 	//bool
@@ -91,7 +92,8 @@ public class MainActivity extends Activity {
 		
 		_context = this;
 		_appLayout = new LinearLayout(this);
-		_popularZips = new TextView(this);
+		_localStorageText = new TextView(this);
+		_localStorageLabel = new TextView(this);
 		
 		//sets _history to the get history call
 		_history = getHistory();
@@ -180,10 +182,11 @@ public class MainActivity extends Activity {
 		
 		//add favorite display
 		 _favorites = new FavDisplay(_context);
-		 _popularZips.setText("Popular Zipcodes");
 		 _pop.setText("Click here for popular zipcodes");
-		
-		
+		 
+		 //sets text field text to local storage text
+		 _localStorageText.setText(_history.toString());
+		 _localStorageLabel.setText("THIS IS WHERE LOCAL STORAGE TEXT WILL SHOW IF ANY IS STORED:");
 		//sets _locationDetails to a new LocationDisplay object
 		_locationDetails = new LocationDisplay(_context);
 		
@@ -191,6 +194,8 @@ public class MainActivity extends Activity {
 		_appLayout.addView(_search);
 		_appLayout.addView(_locationDetails);
 		_appLayout.addView(_pop);
+		_appLayout.addView(_localStorageLabel);
+		_appLayout.addView(_localStorageText);
 		
 		//sets orientation of UI
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
