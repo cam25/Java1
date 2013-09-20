@@ -44,8 +44,8 @@ import com.cmozie.java1week4.MainActivity;
 		String _cbsa_name;
 		String _region;
 		String _timezone;
-		LocationDisplay _locationDetails = new LocationDisplay(MainActivity._context);
-	
+		//LocationDisplay _locationDetails = new LocationDisplay(MainActivity._context);
+		
 		
 		
 		/* (non-Javadoc)
@@ -98,7 +98,7 @@ protected void onPostExecute(String result){
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 					//_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 					
-					 MainActivity._locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+					//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
 					Toast toast = Toast.makeText(MainActivity._context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					

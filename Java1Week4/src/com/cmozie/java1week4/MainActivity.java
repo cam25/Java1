@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,12 +48,11 @@ public class MainActivity extends Activity {
 
 	//--public statics
 	public static Context _context;
-	public static LocationDisplay _locationDetails;
+	//public static LocationDisplay _locationDetails;
 	public static Button searchButton;
 	
 	
 	//layout
-	LinearLayout _appLayout;
 	TextView _popularZips;
 	Button _pop;
 	
@@ -88,9 +88,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.form);
 		_context = this;
-		_appLayout = new LinearLayout(this);
 		_popularZips = new TextView(this);
 		
 		//sets _history to the get history call
@@ -101,28 +100,28 @@ public class MainActivity extends Activity {
 		String _searchButnText = getResources().getString(R.string.searchButn);
 		
 		// _search is the search form
-		 _search = new SearchForm(_context,_placeholderText1,_searchButnText);
+		// _search = new SearchForm(_context,_placeholderText1,_searchButnText);
 		 
 		 //logs the _history text if inside local storage
 		Log.i("HISTORY READ", _history.toString());
 	 
 		//allows to target the search button in the search form to set onclick event
-		searchButton = _search.getButton();
+		searchButton = (Button) findViewById(R.id.searchButton);
 	
 		//search button on click listener
 		 searchButton.setOnClickListener(new View.OnClickListener() {
 		
 			@Override
 			public void onClick(View view) {
-			
+			EditText sField = (EditText) findViewById(R.id.searchField);
 					//if the search button is pressed and the text field length is greater than 1 go ahead and search
-					if (searchButton.isPressed() && _search.getField().length() > 1) {
+					/*if (searchButton.isPressed() && _search.getField().length() > 1) {
 						getLookup(_search.getField().getText().toString());
 						searchButton.setEnabled(true);
-					}
-					
+					}*/
+					getLookup(sField.getText().toString());
 					//empties the search field
-				_search.getField().setText("");
+				//_search.getField().setText("");
 				
 			}
 		});
@@ -154,7 +153,7 @@ public class MainActivity extends Activity {
 		}
 		 
 		 //popular zipcodes onclick
-		 _pop = new Button(this);
+		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		 _pop.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -162,7 +161,7 @@ public class MainActivity extends Activity {
 					// TODO Auto-generated method stub
 					
 					//adds the _favorites/spinner to the view button is clicked
-					_appLayout.addView(_favorites);
+					//_appLayout.addView(_favorites);
 					
 					//sets button to non clickable once clicked once 
 					_pop.setClickable(false);
@@ -171,11 +170,11 @@ public class MainActivity extends Activity {
 				}
 			});
 		 //if the search text field is < 1 or the text field is selected then enable else dont
-		 if (_search.getField().length() < 1 || _search.getField().isSelected()) {
+		/* if (_search.getField().length() < 1 || _search.getField().isSelected()) {
 			 searchButton.setEnabled(true);
 		}else  {
 			searchButton.setEnabled(false);
-		}
+		}*/
 		 
 		
 		//add favorite display
@@ -185,23 +184,31 @@ public class MainActivity extends Activity {
 		
 		 _popularZips.setText(_history.toString());
 		//sets _locationDetails to a new LocationDisplay object
-		_locationDetails = new LocationDisplay(_context);
+		//_locationDetails = new LocationDisplay(_context);
 		
 		//adding contents to view
-		_appLayout.addView(_search);
-		_appLayout.addView(_locationDetails);
-		_appLayout.addView(_pop);
-		_appLayout.addView(_popularZips);
+		
 		
 		//sets orientation of UI
-		_appLayout.setOrientation(LinearLayout.VERTICAL);
+		//_appLayout.setOrientation(LinearLayout.VERTICAL);
 		
 		//puts the content on the view
-		setContentView(_appLayout);
 
 	}
 	
-	
+public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+		
+		((TextView) findViewById(R.id.location_area_Code)).setText(area_code);
+		((TextView) findViewById(R.id.location_city)).setText(city);;
+		((TextView) findViewById(R.id.location_county)).setText(county);
+		((TextView) findViewById(R.id.location_state)).setText(state);
+		((TextView) findViewById(R.id.location_latitude)).setText(latitude);
+		((TextView) findViewById(R.id.location_longitude)).setText(longitude);
+		((TextView) findViewById(R.id.location_csa_name)).setText(csa_name);
+		((TextView) findViewById(R.id.location_cbsa_name)).setText(cbsa_name);
+		((TextView) findViewById(R.id.location_region)).setText(region);
+		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
+}
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -212,6 +219,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 	
 	//get lookup function that allows me to query the api on on click of the search --see searchButton.OnClick 
 	/**
@@ -326,7 +334,7 @@ public class MainActivity extends Activity {
 					Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 				
 					//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-					_locationDetails.locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+					locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 				
 					//confims zipcode is valie
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);

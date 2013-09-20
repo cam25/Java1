@@ -6,5 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="textFieldText">Enter Zipcode Here</string>
     <string name="searchButn">Search</string>
+    <string name="enter_zipcode_here">Enter Zipcode Here</string>
+    <string name="go">GO</string>
+    <string name="popular_zipcodes">Popular Zipcodes</string>
 
 </resources>
