@@ -19,13 +19,15 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/go"/>
-	 	<Button 
+	 	
+	 	
+
+	</LinearLayout>
+	<Button 
 	 	    android:id="@+id/popularZipcodes"
 	 	    android:layout_width="wrap_content"
 	 	    android:layout_height="wrap_content"
 	 	    android:text="@string/popular_zipcodes"/>
-
-	</LinearLayout>
 		<GridLayout 
 	    	android:id="@+id/locationDisplay"
 	    	android:layout_width="match_parent"
@@ -115,4 +117,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"/>
 		</GridLayout>
+		<Spinner 
+	 	    android:id="@+id/FavDisplay._favorites"
+	 	   	android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content" />
 </LinearLayout>

@@ -115,13 +115,13 @@ public class MainActivity extends Activity {
 			public void onClick(View view) {
 			EditText sField = (EditText) findViewById(R.id.searchField);
 					//if the search button is pressed and the text field length is greater than 1 go ahead and search
-					/*if (searchButton.isPressed() && _search.getField().length() > 1) {
-						getLookup(_search.getField().getText().toString());
+					if (searchButton.isPressed() && sField.getText().length() > 1) {
+						getLookup(sField.getText().toString());
 						searchButton.setEnabled(true);
-					}*/
-					getLookup(sField.getText().toString());
+					}
+					//getLookup(sField.getText().toString());
 					//empties the search field
-				//_search.getField().setText("");
+				sField.setText("");
 				
 			}
 		});
@@ -196,6 +196,8 @@ public class MainActivity extends Activity {
 
 	}
 	
+	
+	
 public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		((TextView) findViewById(R.id.location_area_Code)).setText(area_code);
@@ -209,6 +211,7 @@ public void locationInfo(String area_code, String city, String county, String st
 		((TextView) findViewById(R.id.location_region)).setText(region);
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
 }
+
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -219,6 +222,7 @@ public void locationInfo(String area_code, String city, String county, String st
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 	
 	
 	//get lookup function that allows me to query the api on on click of the search --see searchButton.OnClick 
