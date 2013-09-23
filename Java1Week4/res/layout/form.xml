@@ -39,15 +39,15 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="area_Code"/>
+		        android:text="Areacode:"/>
 		    <TextView 
-		        android:id="@+id/location_area_Code"
+		        android:id="@+id/location_areacode"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"/>
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="city"/>
+		        android:text="City:"/>
 		    <TextView 
 		        android:id="@+id/location_city"
 		        android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="county"/>
+		        android:text="County:"/>
 		    <TextView 
 		        android:id="@+id/location_county"
 		        android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="state"/>
+		        android:text="State:"/>
 		    <TextView 
 		        android:id="@+id/location_state"
 		        android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="latitude"/>
+		        android:text="Latitude:"/>
 		    <TextView 
 		        android:id="@+id/location_latitude"
 		        android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="longitude"/>
+		        android:text="Longitude:"/>
 		    <TextView 
 		        android:id="@+id/location_longitude"
 		        android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="csa_name"/>
+		        android:text="Csa_name:"/>
 		    <TextView	
 		        android:id="@+id/location_csa_name"
 		        android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="cbsa_name"/>
+		        android:text="Cbsa_name:"/>
 		    <TextView 
 		        android:id="@+id/location_cbsa_name"
 		        android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="region"/>
+		        android:text="Region:"/>
 		    <TextView 
 		        android:id="@+id/location_region"
 		        android:layout_width="wrap_content"
@@ -111,14 +111,15 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="timezone"/>
+		        android:text="Timezone:"/>
 		    <TextView 
 		        android:id="@+id/location_timezone"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"/>
 		</GridLayout>
 		<Spinner 
-	 	    android:id="@+id/FavDisplay._favorites"
-	 	   	android:layout_width="wrap_content"
-	 	    android:layout_height="wrap_content" />
+	 	    android:id="@+id/favList"
+	 	   	android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+	 	    android:visibility="invisible" />
 </LinearLayout>

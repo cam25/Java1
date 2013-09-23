@@ -13,6 +13,7 @@ package com.cmozie.java1week4;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -29,11 +30,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.cmozie.classes.*;
 import com.cmozie.libz.FileStuff;
@@ -61,7 +66,6 @@ public class MainActivity extends Activity {
 	
 	//class declarations
 	FavDisplay _favorites;
-	SearchForm _search;
 	
 	//strings
 	String _zipcode;
@@ -80,8 +84,8 @@ public class MainActivity extends Activity {
 	HashMap<String, String> _history;
 	
 	
+	ArrayList<String>_stacks = new ArrayList<String>();
 	
-
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -94,13 +98,21 @@ public class MainActivity extends Activity {
 		
 		//sets _history to the get history call
 		_history = getHistory();
+		//san francisco
+		_stacks.add("94105");
+		//Miami
+		_stacks.add("33133");
+		//washington dc
+		_stacks.add("20001");
+		//time square
+		_stacks.add("10036");
+		//Chicago
+		_stacks.add("60106");
 		
 		//accessing resources
 		String _placeholderText1 = getResources().getString(R.string.textFieldText);
 		String _searchButnText = getResources().getString(R.string.searchButn);
-		
-		// _search is the search form
-		// _search = new SearchForm(_context,_placeholderText1,_searchButnText);
+
 		 
 		 //logs the _history text if inside local storage
 		Log.i("HISTORY READ", _history.toString());
@@ -119,8 +131,7 @@ public class MainActivity extends Activity {
 						getLookup(sField.getText().toString());
 						searchButton.setEnabled(true);
 					}
-					//getLookup(sField.getText().toString());
-					//empties the search field
+										//empties the search field
 				sField.setText("");
 				
 			}
@@ -152,6 +163,13 @@ public class MainActivity extends Activity {
 			searchButton.setClickable(false);
 		}
 		 
+		
+			
+		 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
+		 listAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		 ((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
+		
+		
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		 _pop.setOnClickListener(new OnClickListener() {
@@ -161,8 +179,30 @@ public class MainActivity extends Activity {
 					// TODO Auto-generated method stub
 					
 					//adds the _favorites/spinner to the view button is clicked
-					//_appLayout.addView(_favorites);
+					Spinner spinnerObj = (Spinner) findViewById(R.id.favList);
 					
+					
+					spinnerObj.setVisibility(View.VISIBLE);
+					((Spinner) findViewById(R.id.favList)).setOnItemSelectedListener(new OnItemSelectedListener() {
+						
+						
+						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
+							String selected = parent.getItemAtPosition(pos).toString();
+							Log.i("Favorite Selected", selected);
+							
+							//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
+							getLookup(selected);
+							
+						}
+						
+						@Override
+						public void onNothingSelected(AdapterView<?>parent){
+							Log.i("Aborted", "None Selected");
+							
+						}
+						
+						
+					});
 					//sets button to non clickable once clicked once 
 					_pop.setClickable(false);
 					
@@ -175,32 +215,26 @@ public class MainActivity extends Activity {
 		}else  {
 			searchButton.setEnabled(false);
 		}*/
-		 
-		
-		//add favorite display
-		 _favorites = new FavDisplay(_context);
-		 //_popularZips.setText("Local Storage here");
+	
 		 _pop.setText("Click here for popular zipcodes");
-		
-		 _popularZips.setText(_history.toString());
+
+	
+	}
+		 //commented out stuff from week 3
+		 
 		//sets _locationDetails to a new LocationDisplay object
 		//_locationDetails = new LocationDisplay(_context);
-		
 		//adding contents to view
-		
-		
 		//sets orientation of UI
 		//_appLayout.setOrientation(LinearLayout.VERTICAL);
-		
 		//puts the content on the view
+		 //_popularZips.setText("Local Storage here");
+		 //_popularZips.setText(_history.toString());
+	
 
-	}
-	
-	
-	
 public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
-		((TextView) findViewById(R.id.location_area_Code)).setText(area_code);
+		((TextView) findViewById(R.id.location_areacode)).setText(area_code);
 		((TextView) findViewById(R.id.location_city)).setText(city);;
 		((TextView) findViewById(R.id.location_county)).setText(county);
 		((TextView) findViewById(R.id.location_state)).setText(state);
