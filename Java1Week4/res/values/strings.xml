@@ -7,7 +7,7 @@
     <string name="textFieldText">Enter Zipcode Here</string>
     <string name="searchButn">Search</string>
     <string name="enter_zipcode_here">Enter Zipcode Here</string>
-    <string name="go">GO</string>
+    <string name="search">Search</string>
     <string name="popular_zipcodes">Popular Zipcodes</string>
 
 </resources>

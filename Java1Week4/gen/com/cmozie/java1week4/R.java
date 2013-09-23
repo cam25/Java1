@@ -51,9 +51,9 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int enter_zipcode_here=0x7f050005;
-        public static final int go=0x7f050006;
         public static final int hello_world=0x7f050002;
         public static final int popular_zipcodes=0x7f050007;
+        public static final int search=0x7f050006;
         public static final int searchButn=0x7f050004;
         public static final int textFieldText=0x7f050003;
     }
@@ -84,6 +84,7 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int editTextStyle=0x7f060004;
         public static final int jsonResults=0x7f060003;
         public static final int textLabels=0x7f060002;
     }
