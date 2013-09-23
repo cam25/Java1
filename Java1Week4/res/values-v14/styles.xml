@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme for API 14+. This theme completely replaces
@@ -8,5 +8,14 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- API 14 theme customizations can go here. -->
     </style>
-
+	
+    <style name="textLabels">
+        <item name="android:textColor">@android:color/holo_green_light</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">5dp</item>
+    </style>
+    <style name="jsonResults">
+        <item name="android:textStyle">bold</item>   
+        </style>
 </resources>

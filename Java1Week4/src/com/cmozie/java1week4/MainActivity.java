@@ -98,6 +98,8 @@ public class MainActivity extends Activity {
 		
 		//sets _history to the get history call
 		_history = getHistory();
+		
+		_stacks.add("Select a zipcode here");
 		//san francisco
 		_stacks.add("94105");
 		//Miami
