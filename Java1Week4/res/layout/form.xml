@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/holo_blue_dark" >
+   <ImageView 
+            android:id="@+id/banner"
+            android:layout_width="383dip"
+            android:layout_height="90dip"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/zipcode_banner"
+            android:src="@drawable/zipcodebanner">
+            </ImageView>
     
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+ 
         <EditText
             android:id="@+id/searchField"
             android:layout_width="0dp"
@@ -21,15 +31,12 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/search"/>
-	 	
-	 	
+
 
 	</LinearLayout>
-	<Button 
-	 	    android:id="@+id/popularZipcodes"
-	 	    android:layout_width="wrap_content"
-	 	    android:layout_height="wrap_content"
-	 	    android:text="@string/popular_zipcodes"/>
+	
+	
+	
 		<GridLayout 
 	    	android:id="@+id/locationDisplay"
 	    	android:layout_width="match_parent"
@@ -37,7 +44,6 @@
 	    	android:layout_weight=".5"
 	    	android:columnCount="2"
 	    	android:padding="10dip">
-		    
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -101,7 +107,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Csa_name:"
+		        android:text="Csa name:"
 		        style="@style/textLabels"/>
 		    <TextView	
 		        android:id="@+id/location_csa_name"
@@ -111,7 +117,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Cbsa_name:"
+		        android:text="Cbsa name:"
 		        style="@style/textLabels"/>
 		    <TextView 
 		        android:id="@+id/location_cbsa_name"
@@ -138,10 +144,23 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        style="@style/jsonResults"/>
+		    
 		</GridLayout>
+		<LinearLayout 
+		    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"> 
+		<Button 
+	 	    android:id="@+id/popularZipcodes"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:text="@string/popular_zipcodes"/>
+		 </LinearLayout>
 		<Spinner 
 	 	    android:id="@+id/favList"
 	 	   	android:layout_width="match_parent"
 	 	    android:layout_height="wrap_content"
-	 	    android:visibility="invisible" />
+	 	    android:visibility="invisible"
+	 	    style="@style/spinnerStyle" />
+		
 </LinearLayout>

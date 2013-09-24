@@ -14,13 +14,22 @@
         <item name="android:typeface">serif</item>
         <item name="android:textSize">18sp</item>
         <item name="android:paddingLeft">5dp</item>
+         
     </style>
     
     <style name="jsonResults">
-        <item name="android:textStyle">bold</item>   
+        <item name="android:textStyle">bold</item>  
+       
         </style>
         
     <style name="editTextStyle">
+        <item name="android:textStyle">bold</item>   
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:gravity">center</item>
+        </style>
+        
+    <style name="spinnerStyle">
         <item name="android:textStyle">bold</item>   
         <item name="android:textSize">18sp</item> 
         </style>

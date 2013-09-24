@@ -9,5 +9,6 @@
     <string name="enter_zipcode_here">Enter Zipcode Here</string>
     <string name="search">Search</string>
     <string name="popular_zipcodes">Popular Zipcodes</string>
+    <string name="zipcode_banner">Zipcode Banner</string>
 
 </resources>

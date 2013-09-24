@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -131,6 +132,11 @@ public class MainActivity extends Activity {
 					//if the search button is pressed and the text field length is greater than 1 go ahead and search
 					if (searchButton.isPressed() && sField.getText().length() > 1) {
 						getLookup(sField.getText().toString());
+						
+						//hides keyboard.
+						InputMethodManager imm = (InputMethodManager)getSystemService(
+						Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(sField.getWindowToken(), 0);
 						searchButton.setEnabled(true);
 					}
 										//empties the search field
@@ -222,18 +228,7 @@ public class MainActivity extends Activity {
 
 	
 	}
-		 //commented out stuff from week 3
-		 
-		//sets _locationDetails to a new LocationDisplay object
-		//_locationDetails = new LocationDisplay(_context);
-		//adding contents to view
-		//sets orientation of UI
-		//_appLayout.setOrientation(LinearLayout.VERTICAL);
-		//puts the content on the view
-		 //_popularZips.setText("Local Storage here");
-		 //_popularZips.setText(_history.toString());
 	
-
 public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		((TextView) findViewById(R.id.location_areacode)).setText(area_code);
