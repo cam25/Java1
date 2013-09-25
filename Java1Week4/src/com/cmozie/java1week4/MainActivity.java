@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 		_history = getHistory();
 		
 		//adding items to the spinner
-		_stacks.add("Select a zipcode here");
+		//_stacks.add("Click here for a list of zips");
 		//san francisco
 		_stacks.add("94105");
 		//Miami
@@ -170,10 +170,10 @@ public class MainActivity extends Activity {
 		
 			
 		 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
-		 listAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
 		 ((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 		
-		
+	
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		 _pop.setOnClickListener(new OnClickListener() {
@@ -182,6 +182,20 @@ public class MainActivity extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					
+					//informing the user h
+					AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+					alert.setTitle("What to do?");
+					alert.setMessage("Click the yellow box to view the popular zipcodes");
+					alert.setCancelable(false);
+					alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+
+							dialog.cancel();
+						}
+					});
+					alert.show();
 					//adds the _favorites/spinner to the view button is clicked
 					Spinner spinnerObj = (Spinner) findViewById(R.id.favList);
 					
@@ -191,8 +205,11 @@ public class MainActivity extends Activity {
 						
 						
 						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
+							
 							String selected = parent.getItemAtPosition(pos).toString();
 							Log.i("Favorite Selected", selected);
+							
+							
 							
 							//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
 							getLookup(selected);
@@ -207,11 +224,13 @@ public class MainActivity extends Activity {
 						
 						
 					});
+					
 					//sets button to non clickable once clicked once 
 					_pop.setClickable(false);
 					
 					
 				}
+					
 			});
 		
 	
