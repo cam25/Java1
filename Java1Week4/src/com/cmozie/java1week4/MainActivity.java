@@ -1,12 +1,13 @@
 /*
- * project 			Java1Week3
+ * project 			Java1Week4
  * 
- * package			com.cmozie.java1week3
+ * package			com.cmozie.java1week4
  * 
  * name				cameronmozie
  * 
- * date				Sep 19, 2013
+ * date				Sep 25, 2013
  */
+
 
 package com.cmozie.java1week4;
 
@@ -35,7 +36,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,6 +100,7 @@ public class MainActivity extends Activity {
 		//sets _history to the get history call
 		_history = getHistory();
 		
+		//adding items to the spinner
 		_stacks.add("Select a zipcode here");
 		//san francisco
 		_stacks.add("94105");
@@ -111,11 +112,6 @@ public class MainActivity extends Activity {
 		_stacks.add("10036");
 		//Chicago
 		_stacks.add("60106");
-		
-		//accessing resources
-		String _placeholderText1 = getResources().getString(R.string.textFieldText);
-		String _searchButnText = getResources().getString(R.string.searchButn);
-
 		 
 		 //logs the _history text if inside local storage
 		Log.i("HISTORY READ", _history.toString());
@@ -217,18 +213,27 @@ public class MainActivity extends Activity {
 					
 				}
 			});
-		 //if the search text field is < 1 or the text field is selected then enable else dont
-		/* if (_search.getField().length() < 1 || _search.getField().isSelected()) {
-			 searchButton.setEnabled(true);
-		}else  {
-			searchButton.setEnabled(false);
-		}*/
+		
 	
 		 _pop.setText("Click here for popular zipcodes");
 
 	
 	}
 	
+/**
+ * Location info.
+ *
+ * @param area_code the area_code
+ * @param city the city
+ * @param county the county
+ * @param state the state
+ * @param latitude the latitude
+ * @param longitude the longitude
+ * @param csa_name the csa_name
+ * @param cbsa_name the cbsa_name
+ * @param region the region
+ * @param timezone the timezone
+ */
 public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		((TextView) findViewById(R.id.location_areacode)).setText(area_code);

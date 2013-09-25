@@ -32,5 +32,8 @@
     <style name="spinnerStyle">
         <item name="android:textStyle">bold</item>   
         <item name="android:textSize">18sp</item> 
+        <item name="android:background">#FFF000</item>
+        <item name="android:popupBackground">#FFF000</item>
+         <item name="android:textColor">#993399</item>
         </style>
 </resources>

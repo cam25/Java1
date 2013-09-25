@@ -20,7 +20,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-import com.cmozie.classes.LocationDisplay;
 import com.cmozie.java1week4.MainActivity;
 
 
