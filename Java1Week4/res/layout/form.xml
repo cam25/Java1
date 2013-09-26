@@ -6,7 +6,7 @@
     android:background="@android:color/holo_blue_dark" >
    <ImageView 
             android:id="@+id/banner"
-            android:layout_width="383dip"
+            android:layout_width="385dip"
             android:layout_height="90dip"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
@@ -170,6 +170,7 @@
 	 	    android:paddingTop="10dp"
 	 	    android:prompt="@string/enter_zipcode_here"
 	 	    android:visibility="invisible"
+	 	    
 	 	    style="@style/spinnerStyle" />
 		
 </LinearLayout>

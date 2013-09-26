@@ -1,12 +1,13 @@
 /*
- * project 			Java1Week3
+ * project 			Java1Week4
  * 
  * package			com.cmozie.classes
  * 
  * name				cameronmozie
  * 
- * date				Sep 19, 2013
+ * date				Sep 26, 2013
  */
+
 package com.cmozie.classes;
 
 import android.content.Context;

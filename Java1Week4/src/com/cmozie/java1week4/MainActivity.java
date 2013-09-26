@@ -16,7 +16,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +27,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -93,7 +93,17 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.form);
+		
+		//inflating my form.xml
+		View view;
+		LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		view = layoutInflater.inflate(R.layout.form, null);
+		
+		//setting contentView to my inflated view/form
+		setContentView(view);
+		
+		
+		
 		_context = this;
 		_popularZips = new TextView(this);
 		
@@ -101,7 +111,6 @@ public class MainActivity extends Activity {
 		_history = getHistory();
 		
 		//adding items to the spinner
-		//_stacks.add("Click here for a list of zips");
 		//san francisco
 		_stacks.add("94105");
 		//Miami
@@ -112,6 +121,7 @@ public class MainActivity extends Activity {
 		_stacks.add("10036");
 		//Chicago
 		_stacks.add("60106");
+		
 		 
 		 //logs the _history text if inside local storage
 		Log.i("HISTORY READ", _history.toString());
@@ -182,7 +192,7 @@ public class MainActivity extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					
-					//informing the user h
+					//informing the user how to select a popular zipcode
 					AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 					alert.setTitle("What to do?");
 					alert.setMessage("Click the yellow box to view the popular zipcodes");
